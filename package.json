@@ -1,0 +1,58 @@
+{
+  "name": "reacttest",
+  "version": "0.1.0",
+  "homepage": "./",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.11.4",
+    "@material-ui/icons": "^4.11.2",
+    "jest-junit-reporter": "^1.1.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router": "^6.2.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3"
+  },
+  "jest": {
+    "coverageReporters": [
+      "text",
+      "cobertura",
+      "json",
+      "lcov",
+      "clover"
+    ],
+    "coveragePathIgnorePatterns": [
+      "build",
+      "node_modules"
+    ]
+  },
+  "scripts": {
+    "start": "node ./node_modules/react-scripts/bin/react-scripts start",
+    "build": "node ./node_modules/react-scripts/bin/react-scripts build",
+    "test": "set CI=true && node ./node_modules/react-scripts/bin/react-scripts test --env=jsdom --coverage --testResultsProcessor jest-junit-reporter",
+    "eject": "node ./node_modules/react-scripts/bin/react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
+    "@testing-library/user-event": "^12.7.3"
+  }
+}
