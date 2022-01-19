@@ -62,7 +62,7 @@ function App() {
           </Container>
         </AppBar>
         <main className={classes.main}>
-            <Route exact path="/" element={<Home />} />
+            <Route exact path="/" component={Home} />
         </main>
         <footer className={classes.footer}>
           <Typography variant="h6" align="center" gutterBottom>ReactJS Test</Typography>
