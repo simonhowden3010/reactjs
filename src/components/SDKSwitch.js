@@ -62,7 +62,7 @@ const SDKSwitch = ({
               size="large"
               variant="contained"
               color="secondary"
-              data-testid="installedSDKButton"
+              data-testid="uninstalledSDKButton"
               disabled={UninstalledVisible === true}
               onClick={disableUninstalledButton}
             >Uninstalled</Button>

@@ -4,7 +4,7 @@ const baseUri = apiconfig.baseApiUrl;
 
 /* istanbul ignore file */
 
-export const getInstalledSDKData = async (loc) => {
+export const getData = async (loc) => {
     const url = baseUri + loc;
     return await get(url);
 }

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { getInstalledSDKData } from "../services/http.js";
+import { getData } from "../services/http.js";
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from "@material-ui/core";
 import Grid from '@material-ui/core/Grid';
@@ -29,7 +29,23 @@ const InstalledSDK = () => {
   const [dataCategories, setDataCategories] = React.useState([]);
 
   useEffect(() => {      
-    getInstalledSDK();
+    getData('installed.json')
+      .then(res => {
+        // sort by date (most recent first)
+        res.data.installedSdks.sort(custom_sort);
+        setData(res)
+
+        var list = [];
+        res.data.installedSdks.forEach(function (item) {
+          if (!list.includes(JSON.stringify(item.categories))) {
+            list.push(JSON.stringify(item.categories));
+          }
+        });
+        list.sort();
+        setDataCategories(list);
+        setDataLoaded(true);
+      })
+    
   }, []);
 
   // for date sort (most recent first)
@@ -40,26 +56,6 @@ const InstalledSDK = () => {
   function getReadableDate(date) {
     var readableDate = new Date(date);
     return readableDate.toDateString();
-  }
-
-  const getInstalledSDK = async () => {
-    await getInstalledSDKData('installed.json')
-      .then(res => {
-        // sort by date (most recent first)
-        res.data.installedSdks.sort(custom_sort);
-        setData(res)
-        console.log(res);
-
-        var list = [];
-        res.data.installedSdks.forEach(function (item) {
-          if (!list.includes(JSON.stringify(item.categories))) {
-            list.push(JSON.stringify(item.categories));
-          }
-        });
-        list.sort();
-        setDataCategories(list);
-      })
-    setDataLoaded(true);
   }
 
   return (
@@ -77,6 +73,11 @@ const InstalledSDK = () => {
                     <Typography align="right" variant="h2" color="inherit" noWrap>{data.data.installedSdks.length}</Typography>
                   }
                 </Grid>
+                {dataLoaded === true && 
+                  <Grid item xs={12} md={12}>
+                    <Typography align="left" variant="body1" color="inherit" noWrap>Last update: {getReadableDate(data.data.installedSdks[0].lastSeenDate)}</Typography>
+                  </Grid>
+                }
                 <Grid item xs={12} md={12}>
                   {dataLoaded === true && 
                     <>
@@ -91,6 +92,8 @@ const InstalledSDK = () => {
                                     return (
                                       <Typography key={key} align="left" variant="body1" color="inherit" noWrap>{sdkItem.name}</Typography>
                                     )
+                                  } else {
+                                    return null
                                   }
                                 })}
                               </Grid>
@@ -101,12 +104,6 @@ const InstalledSDK = () => {
                     </>
                   }
                 </Grid>
-
-                {dataLoaded === true && 
-                  <Grid item xs={12} md={12}>
-                    <Typography align="left" variant="body1" color="inherit" noWrap>Last update: {getReadableDate(data.data.installedSdks[0].lastSeenDate)}</Typography>
-                  </Grid>
-                }
               </Grid>
             </CardContent>
           </Card>
