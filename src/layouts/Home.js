@@ -17,6 +17,8 @@ const homeStyles = makeStyles((theme) => ({
 
 const Home = () => {
   const classes = homeStyles();
+  const [showInstalledSDK, setShowInstalledSDK] = React.useState(false);
+  const [showUninstalledSDK, setShowUninstalledSDK] = React.useState(false);
 
   return (
     <>
@@ -27,9 +29,16 @@ const Home = () => {
           </Typography>
         </div>
       </Container>
-      <SDKSwitch />
-      <InstalledSDK />
-      <UninstalledSDK />
+      <SDKSwitch
+        setShowInstalledSDK={setShowInstalledSDK}
+        setShowUninstalledSDK={setShowUninstalledSDK}
+      />
+      { showInstalledSDK === true &&
+        <InstalledSDK />
+      }
+      { showUninstalledSDK === true &&
+        <UninstalledSDK />
+      }
     </>
   );
 };
