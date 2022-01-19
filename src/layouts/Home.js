@@ -2,6 +2,9 @@ import React from "react";
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from "@material-ui/core";
+import SDKSwitch from '../components/SDKSwitch';
+import InstalledSDK from '../components/InstalledSDK';
+import UninstalledSDK from '../components/UninstalledSDK';
 
 const homeStyles = makeStyles((theme) => ({
   title: {
@@ -9,14 +12,13 @@ const homeStyles = makeStyles((theme) => ({
   },
   homeOuter: {
     marginTop: theme.spacing(8),
-  },
-  menu: {
-    flexGrow: 1
   }
 }));
 
 const Home = () => {
   const classes = homeStyles();
+  const [showInstalledSDK, setShowInstalledSDK] = React.useState(false);
+  const [showUninstalledSDK, setShowUninstalledSDK] = React.useState(false);
 
   return (
     <>
@@ -27,6 +29,16 @@ const Home = () => {
           </Typography>
         </div>
       </Container>
+      <SDKSwitch
+        setShowInstalledSDK={setShowInstalledSDK}
+        setShowUninstalledSDK={setShowUninstalledSDK}
+      />
+      { showInstalledSDK === true &&
+        <InstalledSDK />
+      }
+      { showUninstalledSDK === true &&
+        <UninstalledSDK />
+      }
     </>
   );
 };
