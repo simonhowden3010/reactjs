@@ -52,7 +52,7 @@ const SDKSwitch = ({
               className={classes.installed} 
               size="large"
               variant="contained"
-              color="secondary"
+              color="primary"
               data-testid="installedSDKButton"
               disabled={installedVisible === true}
               onClick={disableInstalledButton}
